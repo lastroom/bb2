@@ -1,5 +1,4 @@
-var pkg = require('./package.json'),
-    express = require("express"),
+var express = require("express"),
     mongoose = require('mongoose'),
     app = express();
 

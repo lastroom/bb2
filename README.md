@@ -64,3 +64,105 @@ Esta nueva versión funcionará como un administrador de proyectos, donde podrá
 ## Colaboraciones
 
 Si deseas colaborar, por favor manda un correo a julian at lastroom dot mx, levanta un issue, etc.
+
+## Schemes
+
++---------------+
+| User          |
++---------------+
+| firstName     |
+| lastName      |
+| email         |
+| password      |
+| createdAt     |
+| updatedAt     |
+| active        |
++---------------+
+
++---------------+
+| Project       |
++---------------+
+| name          |
+| description   |
+| versions      |
+| milestones    |
+| components    |
+| issues        |
+| readers       |
+| writers       |
+| admins        |
+| createdAt     |
+| updatedAt     |
++---------------+
+
++---------------+
+| Version       |
++---------------+
+| name          |
+| createdAt     |
+| updatedAt     |
+| active        |
++---------------+
+
++---------------+
+| Milestone     |
++---------------+
+| name          |
+| createdAt     |
+| updatedAt     |
+| active        |
++---------------+
+
++---------------+
+| Component     |
++---------------+
+| name          |
+| createdAt     |
+| updatedAt     |
+| active        |
++---------------+
+
++---------------+
+| Kind          |
++---------------+
+| name          |
+| icon          |
+| createdAt     |
+| updatedAt     |
+| active        |
++---------------+
+
++---------------+
+| Priority      |
++---------------+
+| name          |
+| order         |
+| createdAt     |
+| updatedAt     |
+| active        |
++---------------+
+
++---------------+
+| Status        |
++---------------+
+| name          |
+| status        |
+| createdAt     |
+| updatedAt     |
+| active        |
++---------------+
+
++---------------+
+| Issue         |
++---------------+
+| name          |
+| description   |
+| attach        |
+| status        |
+| kind          |
+| priority      |
+| responsable   |
+| createdAt     |
+| updatedAt     |
+| active        |
++---------------+
