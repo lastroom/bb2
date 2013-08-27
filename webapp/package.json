@@ -1,6 +1,7 @@
 {
   "settings": {
     "install_button": false,
+    "api": "http://localhost:4444/",
     "deploy": {
       "folders": [
         "icons"

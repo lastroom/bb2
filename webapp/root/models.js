@@ -2,6 +2,10 @@
 
   var models = namespace.models;
 
-  //TODO: add models below
+  models.User = Bb.Model.extend({
+    url: function() {
+      return uri('users');
+    }
+  })
 
 })(root);

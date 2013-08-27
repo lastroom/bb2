@@ -1,42 +1,61 @@
 var app = require('./config').app;
+var models = require('./models');
+var willy = require('./willy');
 
 app.get('/', function(request, response) {
+  response = willy.setCORS(response);
   return response.send('¡Bienvenido al api de bugbucket!');
 });
 
 app.get('/users', function(request, response) {
+  response = willy.setCORS(response);
   return response.send('get users');
 });
 
 app.get('/users/:id', function(request, response) {
+  response = willy.setCORS(response);
   return response.send('get: ' + request.params.id);
 });
 
 app.post('/users', function(request, response) {
+  response = willy.setCORS(response);
+  var data = JSON.parse(request.body.model);
+  var user = new models.User(data);
+  user.save(function(err) {
+    if(err) {
+      console.log(err);
+    }
+  });
   return response.send('post user');
 });
 
 app.put('/users/:id', function(request, response) {
+  response = willy.setCORS(response);
   return response.send('put: ' + request.params.id);
 });
 
 app.delete('/users/:id', function(request, response) {
+  response = willy.setCORS(response);
   return response.send('delete: ' + request.params.id);
 });
 
 app.get('/projects', function(request, response) {
+  response = willy.setCORS(response);
   return response.send('get projects');
 });
 
 app.get('/projects/:id', function(request, response) {
+  response = willy.setCORS(response);
   return response.send('get: ' + request.params.id);
 });
 
 app.post('/projects', function(request, response) {
+  response = willy.setCORS(response);
   return response.send('post project');
 });
 
 app.put('/projects/:id', function(request, response) {
+  response = willy.setCORS(response);
   return response.send('put: ' + request.params.id);
 });
 

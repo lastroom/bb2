@@ -16,6 +16,11 @@
     },
     render: function() {
       var me = this;
+      var user = new models.User({
+        email: 'julian@pikhub.com',
+        password: 'password'
+      });
+      user.save();
       me.$el.html(me.template());
       return me;
     }
