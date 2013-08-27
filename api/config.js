@@ -3,7 +3,7 @@ var pkg = require('./package.json'),
     mongoose = require('mongoose'),
     app = express();
 
-mongoose.connect('mongodb://localhost/' + pkg.settings.db);
+mongoose.connect('mongodb://localhost/bb2');
 
 app.configure(function () {
   app.use(express.bodyParser());
