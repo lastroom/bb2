@@ -1,7 +1,7 @@
 {
   "name": "bugbucket",
   "description": "Manage your project and if you want connect to github o bitbucket.",
-  "version": "2.0",
+  "version": "2.0.0",
   "_id": "bugbucket@2.0",
   "homepage": "http://bugbucket.org",
   "keywords": ["manage", "project", "source", "code", "bitbucket", "github", "issue", "mileston", "version"],

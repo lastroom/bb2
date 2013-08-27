@@ -3,6 +3,12 @@ Bugbucket 2.0
 
 > Esta es la segunda versión de bugbucket.
 
+## Preparar para desarrollo
+
+```sh
+$ sudo npm install
+```
+
 ## ¿Que hay de nuevo?
 
 Bueno, en esta versión nos vamos a divertir mucho, puesto que la construiremos con nodeJS con ayuda de express, mongodb, mongoose y wonkajs.
