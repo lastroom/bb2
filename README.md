@@ -13,4 +13,6 @@ El primer [bugbucket](http://bugbucket.org) era simplemente un complemento para 
 
 Esta nueva versión funcionará como un administrador de proyectos, donde podrás definir milestones, versiones e issues, que te permitiran gestionar tus proyectos de diseño, de contabilidad, etcetera. Pero que también podrás conectar tu cuenta de bitbucket y/o github, con lo cual podrás mandar estos proyectos, milestones, versiones e issues cualquiera de estos dos servicios de administración de código fuente.
 
-Si deseas colaborar, por favor manda un correo a julian at lastroom dot mx.
+## Colaboraciones
+
+Si deseas colaborar, por favor manda un correo a julian at lastroom dot mx, levanta un issue, etc.
