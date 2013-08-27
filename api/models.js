@@ -21,7 +21,6 @@ models.Project = new willy.Model('Project', {
   readers: [models.Users],
   writers: [models.Users],
   admins: [models.Users],
-  owner: models.Users,
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
   active: { type: Boolean, default: true }
