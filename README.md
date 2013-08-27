@@ -5,7 +5,7 @@ Bugbucket 2.0
 
 ## Preparar para desarrollo
 
-Hay que bajar mongodb: mongodb.org
+Hay que bajar mongodb: http://mongodb.org
 
 Luego que lo haz bajado hay que poner los archivos de la carpeta bin en algún directorio, en el que el SO lo reconozca como global, por ejemplo: /usr/local/bin/.
 
@@ -58,10 +58,3 @@ Esta nueva versión funcionará como un administrador de proyectos, donde podrá
 ## Colaboraciones
 
 Si deseas colaborar, por favor manda un correo a julian at lastroom dot mx, levanta un issue, etc.
-
-## Schemas
-
-+--------------------+
-| Users              |
-+--------------------+
-| 
