@@ -1,0 +1,38 @@
+{
+  "name": "bugbucket",
+  "description": "Manage your project and if you want connect to github o bitbucket.",
+  "version": "2.0",
+  "_id": "bugbucket@2.0",
+  "homepage": "http://bugbucket.org",
+  "keywords": ["manage", "project", "source", "code", "bitbucket", "github", "issue", "mileston", "version"],
+  "author": {
+    "name": "Julian Ceballos",
+    "email": "julian@lastroom.mx",
+    "url": "https://github.com/julianceballos"
+  },
+  "contributors": [{
+    "name": "Josue Camara",
+    "email": "picharras@gmail.com",
+    "url": "https://github.com/picharras"
+  }],
+  "dependencies": {
+    "express": "",
+    "mongoose": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/julianceballos/bb2"
+  },
+  "bugs": {
+    "url": "http://github.com/julianceballos/bb2/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://github.com/julianceballos/bb2/blob/master/LICENSE-MIT"
+    }
+  ],
+  "scripts": {
+    "preinstall": "npm install -g wonkajs"
+  }
+}
