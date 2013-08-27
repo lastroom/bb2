@@ -1,0 +1,30 @@
+{
+  "settings": {
+    "install_button": false,
+    "deploy": {
+      "folders": [
+        "icons"
+      ]
+    },
+    "environment": {
+      "libraries": [
+        "jquery",
+        "underscore",
+        "backbone",
+        "handlebars",
+        "globalize",
+        "helpers",
+        "install"
+      ],
+      "applications": [
+        "root"
+      ]
+    }
+  },
+  "name": "webapp",
+  "description": "Write a description",
+  "version": "0.0.1",
+  "author": "",
+  "homepage": "",
+  "_id": "webapp@0.0.1"
+}

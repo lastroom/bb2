@@ -1,0 +1,19 @@
+{
+  "name": "Webapp",
+  "version": "0.0.1",
+  "description": "Write a description",
+  "launch_path": "/index.html",
+  "icons": {
+    "30": "/icons/icon-30.png",
+    "60": "/icons/icon-60.png",
+    "128": "/icons/icon-128.png"
+  },
+  "developer": {
+    "name": "",
+    "url": "http://url.com"
+  },
+  "installs_allowed_from": [
+    "*"
+  ],
+  "default_locale": "en"
+}

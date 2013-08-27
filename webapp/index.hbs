@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <link rel="shortcut icon" href="/icons/icon.png">
+        <title>{{ name }}</title>
+        <meta name="description" content="{{ description }}">
+        <meta name="viewport" content="width=device-width">
+        <!-- edit under your own risk -->
+        {{# if development }}
+          <link rel="stylesheet/less" href="stylesheets/ui.less">
+          <script src="core/contrib/less.js"></script>
+          <script src="core/contrib/modernizr.js"></script>
+        {{ else }}
+          <link type="text/css" rel="stylesheet" href="main.css?{{ version }}">
+        {{/ if }}
+        <!-- /edit under your own risk -->
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+        <![endif]-->
+        <div id="loading-bar" class="container-fluid" style="display:none;">
+          <progress id="progress-bar" class="row-fluid" value="0" max="100"></progress>
+        </div>
+        <div id="install-bar" style="display:none;">
+          <button id="install-button">Install</button>
+        </div>
+        <div id="container" role="application"></div>
+
+        <!-- edit under your own risk -->
+        {{# each templates }}
+          {{{ this }}}
+        {{/ each }}
+
+        {{# if development }}
+          {{# each scripts }}
+          <script type="text/javascript" src="{{ this }}"></script>
+          {{/ each }}
+          <script type="text/javascript">(function(){window.main();})();</script>
+        {{ else }}
+          <script type="text/javascript" src="main.js?{{ version }}"></script>
+        {{/ if }}
+        <!-- /edit under your own risk -->
+    </body>
+</html>
