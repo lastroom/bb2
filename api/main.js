@@ -1,6 +1,6 @@
 var app = require('./config').app;
 
-app.get('/api/', function(request, response) {
+app.get('/', function(request, response) {
   return response.send('¡Bienvenido al api de bugbucket!');
 });
 
