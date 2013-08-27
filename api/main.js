@@ -4,4 +4,184 @@ app.get('/', function(request, response) {
   return response.send('¡Bienvenido al api de bugbucket!');
 });
 
+app.get('/users', function(request, response) {
+  return response.send('get users');
+});
+
+app.get('/users/:id', function(request, response) {
+  return response.send('get: ' + request.params.id);
+});
+
+app.post('/users', function(request, response) {
+  return response.send('post user');
+});
+
+app.put('/users/:id', function(request, response) {
+  return response.send('put: ' + request.params.id);
+});
+
+app.delete('/users/:id', function(request, response) {
+  return response.send('delete: ' + request.params.id);
+});
+
+app.get('/projects', function(request, response) {
+  return response.send('get projects');
+});
+
+app.get('/projects/:id', function(request, response) {
+  return response.send('get: ' + request.params.id);
+});
+
+app.post('/projects', function(request, response) {
+  return response.send('post project');
+});
+
+app.put('/projects/:id', function(request, response) {
+  return response.send('put: ' + request.params.id);
+});
+
+app.delete('/projects/:id', function(request, response) {
+  return response.send('delete: ' + request.params.id);
+});
+
+app.get('/versions', function(request, response) {
+  return response.send('get versions');
+});
+
+app.get('/versions/:id', function(request, response) {
+  return response.send('get: ' + request.params.id);
+});
+
+app.post('/versions', function(request, response) {
+  return response.send('post version');
+});
+
+app.put('/versions/:id', function(request, response) {
+  return response.send('put: ' + request.params.id);
+});
+
+app.delete('/versions/:id', function(request, response) {
+  return response.send('delete: ' + request.params.id);
+});
+
+app.get('/milestones', function(request, response) {
+  return response.send('get milestones');
+});
+
+app.get('/milestones/:id', function(request, response) {
+  return response.send('get: ' + request.params.id);
+});
+
+app.post('/milestones', function(request, response) {
+  return response.send('post milestone');
+});
+
+app.put('/milestones/:id', function(request, response) {
+  return response.send('put: ' + request.params.id);
+});
+
+app.delete('/milestones/:id', function(request, response) {
+  return response.send('delete: ' + request.params.id);
+});
+
+app.get('/components', function(request, response) {
+  return response.send('get components');
+});
+
+app.get('/components/:id', function(request, response) {
+  return response.send('get: ' + request.params.id);
+});
+
+app.post('/components', function(request, response) {
+  return response.send('post component');
+});
+
+app.put('/components/:id', function(request, response) {
+  return response.send('put: ' + request.params.id);
+});
+
+app.delete('/components/:id', function(request, response) {
+  return response.send('delete: ' + request.params.id);
+});
+
+app.get('/issues', function(request, response) {
+  return response.send('get issues');
+});
+
+app.get('/issues/:id', function(request, response) {
+  return response.send('get: ' + request.params.id);
+});
+
+app.post('/issues', function(request, response) {
+  return response.send('post issue');
+});
+
+app.put('/issues/:id', function(request, response) {
+  return response.send('put: ' + request.params.id);
+});
+
+app.delete('/issues/:id', function(request, response) {
+  return response.send('delete: ' + request.params.id);
+});
+
+app.get('/kinds', function(request, response) {
+  return response.send('get kinds');
+});
+
+app.get('/kinds/:id', function(request, response) {
+  return response.send('get: ' + request.params.id);
+});
+
+app.post('/kinds', function(request, response) {
+  return response.send('post kind');
+});
+
+app.put('/kinds/:id', function(request, response) {
+  return response.send('put: ' + request.params.id);
+});
+
+app.delete('/kinds/:id', function(request, response) {
+  return response.send('delete: ' + request.params.id);
+});
+
+app.get('/status', function(request, response) {
+  return response.send('get status');
+});
+
+app.get('/status/:id', function(request, response) {
+  return response.send('get: ' + request.params.id);
+});
+
+app.post('/status', function(request, response) {
+  return response.send('post status');
+});
+
+app.put('/status/:id', function(request, response) {
+  return response.send('put: ' + request.params.id);
+});
+
+app.delete('/status/:id', function(request, response) {
+  return response.send('delete: ' + request.params.id);
+});
+
+app.get('/priorities', function(request, response) {
+  return response.send('get priorities');
+});
+
+app.get('/priorities/:id', function(request, response) {
+  return response.send('get: ' + request.params.id);
+});
+
+app.post('/priorities/status', function(request, response) {
+  return response.send('post priority');
+});
+
+app.put('/priorities/:id', function(request, response) {
+  return response.send('put: ' + request.params.id);
+});
+
+app.delete('/priorities/:id', function(request, response) {
+  return response.send('delete: ' + request.params.id);
+});
+
 app.listen(4444);
