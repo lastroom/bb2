@@ -7,6 +7,12 @@ Bugbucket 2.0
 
 Hay que bajar mongodb: http://mongodb.org
 
+Una vez descargado hay que crear la carpeta /data/db y cambiar el propietario:
+
+```sh
+$ sudo mkdir /data/db; sudo chown -R jceb /data
+```
+
 Luego que lo haz bajado hay que poner los archivos de la carpeta bin en algún directorio, en el que el SO lo reconozca como global, por ejemplo: /usr/local/bin/.
 
 Luego debes correr mongod que es el servidor de mongo:
