@@ -67,6 +67,7 @@ Si deseas colaborar, por favor manda un correo a julian at lastroom dot mx, leva
 
 ## Schemes
 
+```
 +---------------+
 | User          |
 +---------------+
@@ -166,3 +167,4 @@ Si deseas colaborar, por favor manda un correo a julian at lastroom dot mx, leva
 | updatedAt     |
 | active        |
 +---------------+
+```
