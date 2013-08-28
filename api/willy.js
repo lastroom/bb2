@@ -1,5 +1,45 @@
-var mongoose = require('mongoose');
-var _ = require('underscore');
+var express = require("express"),
+    mongoose = require('mongoose'),
+    _ = require('underscore');
+
+var connectdb = function(name) {
+  return {
+    'mongodb': function(params) {
+      mongoose.connect('mongodb://' + params.host + '/' + params.name);
+    }
+  }[name];
+}
+
+module.exports.App = function(params) {
+  var app = express()
+
+  if ('database' in params) {
+    connectdb(params.database.engine)(params.database);
+  }
+
+  if ('express_config' in params) {
+    app.configure(function() {
+      params.express_config(app);
+    });
+  }
+
+  app.url = function(resourceUri, controller) {
+    var verbs = {
+      'create': 'post',
+      'read': 'get',
+      'update': 'put',
+      'destroy': 'delete'
+    };
+    for(var handler in verbs) {
+      var method = verbs[handler];
+      if (controller[handler]) {
+        app[method](resourceUri, _.bind(controller["pre" + handler], controller));
+      }
+    }
+  }
+
+  return app;
+}
 
 module.exports.Model = function(name, attributes, validators) {
   var schema = new mongoose.Schema(attributes);
@@ -22,18 +62,37 @@ module.exports.setCORS = function(object) {
 }
 
 module.exports.BaseController = {
+  preread: function(request, response) {
+    module.exports.setCORS(response);
+    if (this['read']) {
+      request['args'] = request.query;
+      this['read'](request, response);
+    }
+  },
   precreate: function(request, response) {
     module.exports.setCORS(response);
-    if (this["create"]) {
-      var data = request.body;
+    if (this['create']) {
+      request['args'] = request.body;
       if ('model' in request.body) {
-        data = JSON.parse(request.body.model);
+        request['args'] = JSON.parse(request.body.model);
       }
-      this["create"]({
-        data: data,
-        request: request,
-        response: response,
-      });
+      this['create'](request, response);
+    }
+  },
+  preupdate: function(request, response) {
+    module.exports.setCORS(response);
+    if (this['update']) {
+      request['args'] = request.body;
+      if ('model' in request.body) {
+        request['args'] = JSON.parse(request.body.model);
+      }
+      this['update'](request, response);
+    }
+  },
+  predestroy: function (request, response) {
+    module.exports.setCORS(response);
+    if (this['destroy']) {
+      this['destroy'](request, response);
     }
   },
   extend: function(object) {

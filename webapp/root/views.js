@@ -16,11 +16,14 @@
     },
     render: function() {
       var me = this;
-      var user = new models.User({
+      /*var user = new models.User({
         email: 'julian@pikhub.com' + new Date().getTime(),
         password: 'password'
       });
-      user.save();
+      user.save();*/
+      $.get(uri('users/521e15e8f57db20000000001' + '?a=1&b=2')).done(function(response) {
+        console.log(response);
+      });
       me.$el.html(me.template());
       return me;
     }

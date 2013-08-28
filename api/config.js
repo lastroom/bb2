@@ -12,7 +12,7 @@ app.configure(function () {
   app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
 });
 
-app.url = function(resourceUri, controller) {
+/*app.url = function(resourceUri, controller) {
   var verbs = {
     'create': 'post',
     'read': 'get',
@@ -27,4 +27,13 @@ app.url = function(resourceUri, controller) {
   }
 };
 
-module.exports.app = app;
+module.exports.app = app;*/
+
+/**/
+
+var willy = require('./willy');
+
+module.exports.app = new willy.App({
+  db: 'bb2',
+  express_mods: function() {}
+});
