@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var _ = require('underscore');
 
 module.exports.Model = function(name, attributes, validators) {
   var schema = new mongoose.Schema(attributes);
@@ -19,3 +20,23 @@ module.exports.setCORS = function(object) {
   object.header('Access-Control-Allow-Credentials', 'true')
   return object;
 }
+
+module.exports.BaseController = {
+  precreate: function(request, response) {
+    module.exports.setCORS(response);
+    if (this["create"]) {
+      var data = request.body;
+      if ('model' in request.body) {
+        data = JSON.parse(request.body.model);
+      }
+      this["create"]({
+        data: data,
+        request: request,
+        response: response,
+      });
+    }
+  },
+  extend: function(object) {
+    return _.extend(object, this);
+  }
+};
