@@ -1,6 +1,7 @@
 var app = require('./config').app;
 var models = require('./models');
 var willy = require('./willy');
+var _ = require('underscore');
 
 app.get('/', function(request, response) {
   response = willy.setCORS(response);
@@ -17,17 +18,55 @@ app.get('/users/:id', function(request, response) {
   return response.send('get: ' + request.params.id);
 });
 
-app.post('/users', function(request, response) {
-  response = willy.setCORS(response);
-  var data = JSON.parse(request.body.model);
-  var user = new models.User(data);
-  user.save(function(err) {
-    if(err) {
-      console.log(err);
+var BaseController = {
+  precreate: function(request, response) {
+    willy.setCORS(response);
+    if (this["create"]) {
+      var data = JSON.parse(request.body.model);
+      this["create"]({
+        data: data,
+        request: request, 
+        response: response,
+      });
     }
-  });
-  return response.send('post user');
-});
+  }
+};
+
+var UserController = _.extend({
+  create: function(options) {
+    var user = new models.User(options.data);
+    user.save(function(err) {
+      if(err) {
+        console.log(err);
+        return;
+      }
+      options.response.send(JSON.stringify(options.data));
+    });
+  },
+  update: function() {
+
+  },
+  read: function() {
+
+  },
+  destroy: function() {
+
+  },
+}, BaseController);
+
+var url = function(resourceUri, controller) {
+  var verbs = {
+    'create': 'post'
+  };
+  for(var handler in verbs) {
+    var method = verbs[handler];
+    if (controller[handler]) {
+      app[method](resourceUri, _.bind(controller["pre" + handler], controller));
+    }
+  }
+};
+
+url("/users", UserController);
 
 app.put('/users/:id', function(request, response) {
   response = willy.setCORS(response);

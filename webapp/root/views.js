@@ -17,7 +17,7 @@
     render: function() {
       var me = this;
       var user = new models.User({
-        email: 'julian@pikhub.com',
+        email: 'julian@pikhub.com' + new Date().getTime(),
         password: 'password'
       });
       user.save();
