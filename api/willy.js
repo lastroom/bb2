@@ -55,7 +55,7 @@ module.exports.setCORS = function(object) {
   return object;
 }
 
-module.exports.BaseController = {
+module.exports.Controller = {
   preread: function(request, response) {
     module.exports.setCORS(response);
     if (this['read']) {

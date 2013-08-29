@@ -1,7 +1,7 @@
 var willy = require('./willy');
 var models = require('./models');
 
-module.exports.UsersController = willy.BaseController.extend({
+module.exports.UsersController = willy.Controller.extend({
   read: function(request, response) {
     models.User.find(function(err, collection) {
       return response.send(collection);
@@ -19,7 +19,7 @@ module.exports.UsersController = willy.BaseController.extend({
   }
 });
 
-module.exports.UserController = willy.BaseController.extend({
+module.exports.UserController = willy.Controller.extend({
   read: function(request, response) {
     models.User.findById(request.params.id, function(err, model) {
       return response.send(model);
