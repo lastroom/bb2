@@ -17,12 +17,6 @@ module.exports.App = function(params) {
     connectdb(params.database.engine)(params.database);
   }
 
-  if ('express_config' in params) {
-    app.configure(function() {
-      params.express_config(app);
-    });
-  }
-
   app.url = function(resourceUri, controller) {
     var verbs = {
       'create': 'post',
