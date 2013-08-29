@@ -1,4 +1,3 @@
-var express = require('express');
 var willy = require('./willy');
 var controllers = require('./controllers');
 
@@ -9,13 +8,16 @@ var app = new willy.App({
     host: 'localhost',
     port: '',
     password: ''
-  },
-  express_config: function (scope) {
-    scope.use(express.bodyParser());
-    scope.use(express.methodOverride());
-    scope.use(scope.router);
-    scope.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
   }
+});
+
+app.configure(function() {
+  var express = require('express');
+  
+  app.use(express.bodyParser());
+  app.use(express.methodOverride());
+  app.use(app.router);
+  app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
 });
 
 app.url("/users", controllers.UsersController);
