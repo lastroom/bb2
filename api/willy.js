@@ -1,6 +1,7 @@
 var express = require("express"),
     mongoose = require('mongoose'),
-    _ = require('underscore');
+    _ = require('underscore'),
+    crypto = require('crypto');
 
 var connectdb = function(name) {
   return {
@@ -93,3 +94,8 @@ module.exports.Controller = {
     return _.extend(object, this);
   }
 };
+
+module.exports.sha1 = function(string) {
+  var shasum = crypto.createHash('sha1').update(string);
+  return shasum.digest('base64');
+}

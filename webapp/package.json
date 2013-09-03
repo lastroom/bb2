@@ -2,6 +2,8 @@
   "settings": {
     "install_button": false,
     "api": "http://localhost:4444/",
+    "auth_module": "auth",
+    "storage_engine": "localStorage",
     "deploy": {
       "folders": [
         "icons"
@@ -15,14 +17,15 @@
         "handlebars",
         "globalize",
         "helpers",
-        "install"
+        "install",
+        "bootstrap"
       ],
       "applications": [
         "root"
       ]
     }
   },
-  "name": "webapp",
+  "name": "Bugbucket",
   "description": "Write a description",
   "version": "0.0.1",
   "author": "",

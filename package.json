@@ -18,7 +18,8 @@
   "dependencies": {
     "express": "",
     "mongoose": "",
-    "underscore": ""
+    "underscore": "",
+    "crypto": ""
   },
   "repository": {
     "type": "git",

@@ -22,5 +22,6 @@ app.configure(function() {
 
 app.url("/users", controllers.UsersController);
 app.url("/users/:id", controllers.UserController);
+app.url("/authenticate", controllers.AuthenticationController);
 
 app.listen(4444);
