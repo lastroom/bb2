@@ -157,6 +157,14 @@ window.isMobile = {
   }
 };
 
+window.redirect = function(url) {
+  if (url.indexOf('://')) {
+    location.href = url;
+  } else {
+    Bb.history.navigate(url, {trigger: true}, {replace: true});
+  }
+}
+
 App.loadingBar = {
   show: function() {
     $('#progress-bar').val(0);
@@ -199,20 +207,21 @@ App.loadingBar = {
 //Backbone Router extensions
 _.extend(Backbone.Router.prototype, {
   route: function(route, name, callback) {
+    var _route = route;
     if (!_.isRegExp(route)) route = this._routeToRegExp(route);
     if (!callback) callback = this[name];
     var routerinstance = this;
     Backbone.history.route(route, _.bind(function(fragment) {
       var loginRequired = routerinstance['loginRequired'] || [];
       var logoutRequired = routerinstance['logoutRequired'] || [];
-      if (loginRequired.indexOf(fragment) != -1) {
+      if (loginRequired.indexOf(_route) != -1) {
         if (!isAuthenticated()) {
           var login = App.pkg.settings.login_route || "#login";
           Backbone.history.navigate(login, {trigger: true}, {replace: true});
           return false;
         }
       }
-      if (logoutRequired.indexOf(fragment) != -1) {
+      if (logoutRequired.indexOf(_route) != -1) {
         if (isAuthenticated()) {
           var home = App.pkg.settings.home_route || "#home";
           Backbone.history.navigate(home, {trigger: true}, {replace: true});

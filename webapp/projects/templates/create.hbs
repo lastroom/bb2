@@ -1,0 +1,9 @@
+<script type="text/x-handlebars-template" id="projects-create-template">
+    <h1>{{ __ "Fill the data for your new project" }}</h1>
+    <form class="form-inline">
+    <input type="hidden" name="token" value="{{ token }}">
+      <input type="text" name="name" value="" placeholder="{{ __ "Name" }}">
+      <input type="text" name="description" value="" placeholder="{{ __ "Description" }}">
+      <button class="btn" type="submit">{{ __ "Create" }}</button>
+    </form>
+</script>

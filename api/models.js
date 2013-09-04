@@ -3,57 +3,57 @@ var willy = require('./willy');
 module.exports.User = new willy.Model('User', {
   firstName: { type: String, default: '' },
   lastName: { type: String, default: '' },
-  email: { type: String, required: true, unique: true},
-  password: { type: String, required: true},
+  email: { type: String, unique: true, select: false },
+  password: { type: String, select: false },
   token: { type: String, required: true },
-  createdAt: { type: Date, default: Date.now },
-  updatedAt: { type: Date, default: Date.now },
-  active: { type: Boolean, default: true }
+  createdAt: { type: Date, default: Date.now, select: false },
+  updatedAt: { type: Date, default: Date.now, select: false },
+  active: { type: Boolean, default: true, select: false }
 });
 
 module.exports.Version = new willy.Model('Version', {
   name: { type: String, required: true },
-  createdAt: { type: Date, default: Date.now },
-  updatedAt: { type: Date, default: Date.now },
-  active: { type: Boolean, default: true }
+  createdAt: { type: Date, default: Date.now, select: false },
+  updatedAt: { type: Date, default: Date.now, select: false },
+  active: { type: Boolean, default: true, select: false }
 });
 
 module.exports.Milestone = new willy.Model('Milestone', {
   name: { type: String, required: true },
-  createdAt: { type: Date, default: Date.now },
-  updatedAt: { type: Date, default: Date.now },
-  active: { type: Boolean, default: true }
+  createdAt: { type: Date, default: Date.now, select: false },
+  updatedAt: { type: Date, default: Date.now, select: false },
+  active: { type: Boolean, default: true, select: false }
 });
 
 module.exports.Component = new willy.Model('Component', {
   name: { type: String, required: true },
-  createdAt: { type: Date, default: Date.now },
-  updatedAt: { type: Date, default: Date.now },
-  active: { type: Boolean, default: true }
+  createdAt: { type: Date, default: Date.now, select: false },
+  updatedAt: { type: Date, default: Date.now, select: false },
+  active: { type: Boolean, default: true, select: false }
 });
 
 module.exports.Status = new willy.Model('Status', {
   name: { type: String, required: true },
   icon: { type: String, required: true },
-  createdAt: { type: Date, default: Date.now },
-  updatedAt: { type: Date, default: Date.now },
-  active: { type: Boolean, default: true }
+  createdAt: { type: Date, default: Date.now, select: false },
+  updatedAt: { type: Date, default: Date.now, select: false },
+  active: { type: Boolean, default: true, select: false }
 });
 
 module.exports.Kind = new willy.Model('Kind', {
   name: { type: String, required: true },
   icon: { type: String, required: true },
-  createdAt: { type: Date, default: Date.now },
-  updatedAt: { type: Date, default: Date.now },
-  active: { type: Boolean, default: true }
+  createdAt: { type: Date, default: Date.now, select: false },
+  updatedAt: { type: Date, default: Date.now, select: false },
+  active: { type: Boolean, default: true, select: false }
 });
 
 module.exports.Priority = new willy.Model('Priority', {
   name: { type: String, required: true },
   icon: { type: String, required: true },
-  createdAt: { type: Date, default: Date.now },
-  updatedAt: { type: Date, default: Date.now },
-  active: { type: Boolean, default: true }
+  createdAt: { type: Date, default: Date.now, select: false },
+  updatedAt: { type: Date, default: Date.now, select: false },
+  active: { type: Boolean, default: true, select: false }
 });
 
 module.exports.Issue = new willy.Model('Issue', {
@@ -64,22 +64,23 @@ module.exports.Issue = new willy.Model('Issue', {
   kind: willy.ForeignKey('Kind'),
   priority: willy.ForeignKey('Priority'),
   responsable: willy.ForeignKey('User'),
+  project: willy.ForeignKey(module.exports.Project),
   createdAt: { type: Date, default: Date.now },
-  updatedAt: { type: Date, default: Date.now },
-  active: { type: Boolean, default: true }
+  updatedAt: { type: Date, default: Date.now, select: false },
+  active: { type: Boolean, default: true, select: false }
 });
 
 module.exports.Project = new willy.Model('Project', {
   name: { type: String, required: true },
   description: { type: String, required: true, default: '' },
-  versions: [module.exports.Version],
-  milestones: [module.exports.Milestone],
-  components: [module.exports.Component],
-  issues: [module.exports.Issue],
-  readers: [module.exports.User],
-  writers: [module.exports.User],
-  admins: [module.exports.User],
+  versions: willy.ManyToMany(module.exports.Version),
+  milestones: willy.ManyToMany(module.exports.Milestone),
+  components: willy.ManyToMany(module.exports.Component),
+  //issues: willy.ManyToMany(module.exports.Issue),
+  readers: willy.ManyToMany(module.exports.User),
+  writers: willy.ManyToMany(module.exports.User),
+  admins: willy.ManyToMany(module.exports.User),
   createdAt: { type: Date, default: Date.now },
-  updatedAt: { type: Date, default: Date.now },
+  updatedAt: { type: Date, default: Date.now, select: false },
   active: { type: Boolean, default: true }
 });

@@ -23,5 +23,13 @@ app.configure(function() {
 app.url("/users", controllers.UsersController);
 app.url("/users/:id", controllers.UserController);
 app.url("/authenticate", controllers.AuthenticationController);
+app.url("/projects", controllers.ProjectsController);
+app.url("/projects/:id", controllers.ProjectController);
+app.url("/projects/:id/components", controllers.ComponentsController);
+app.url("/projects/:id/components/:component", controllers.ComponentController);
+app.url("/projects/:id/versions", controllers.VersionsController);
+app.url("/projects/:id/version/:version", controllers.VersionController);
+app.url("/projects/:id/milestones", controllers.MilestonesController);
+app.url("/projects/:id/milestones/:milestone", controllers.MilestoneController);
 
 app.listen(4444);

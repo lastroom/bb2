@@ -1,0 +1,14 @@
+<script type="text/x-handlebars-template" id="projects-info-template">
+    <h1>{{ name }}</h1>
+    <h2>{{ __ "Issues" }}</h2>
+    <p>
+      <a class="btn" href="#projects/{{ _id }}/issues/new">
+        {{ __ "Create issue" }}
+      </a>
+    </p>
+    <ul>
+      {{# each issues }}
+      <li>{{ title }}</li>
+      {{/ each }}
+    </ul>
+</script>

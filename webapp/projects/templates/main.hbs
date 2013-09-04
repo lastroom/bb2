@@ -1,0 +1,12 @@
+<script type="text/x-handlebars-template" id="projects-main-template">
+  <h1>{{ __ "Projects" }}</h1>
+  <p><a href="#logout" title="">{{ __ "Logout" }}</a> | <a href="#projects/new" title="">{{ __ "Create project" }}</a></p>
+  <ul>
+    {{# each projects }}
+    <li>
+      <a href="#projects/{{ _id }}">{{ name }} - {{ description }}</a>
+      <a class="btn" href="#projects/{{ _id }}/settings"><i class="icon-wrench"></i></a>
+    </li>
+    {{/ each }}
+  </ul>
+</script>

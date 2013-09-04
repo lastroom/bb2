@@ -4,6 +4,7 @@
     "api": "http://localhost:4444/",
     "auth_module": "auth",
     "storage_engine": "localStorage",
+    "home_route": "#projects",
     "deploy": {
       "folders": [
         "icons"
@@ -14,6 +15,7 @@
         "jquery",
         "underscore",
         "backbone",
+        "backbone.extensions",
         "handlebars",
         "globalize",
         "helpers",
@@ -21,7 +23,9 @@
         "bootstrap"
       ],
       "applications": [
-        "root"
+        "root",
+        "auth",
+        "projects"
       ]
     }
   },

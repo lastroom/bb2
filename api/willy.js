@@ -48,6 +48,10 @@ module.exports.ForeignKey = function(modelName) {
   return { type: mongoose.Schema.Types.ObjectId, ref: modelName }
 }
 
+module.exports.ManyToMany = function(model) {
+  return [model.schema];
+}
+
 module.exports.setCORS = function(object) {
   object.header('Access-Control-Allow-Origin', '*'),
   object.header('Access-Control-Allow-Headers', '*'),
