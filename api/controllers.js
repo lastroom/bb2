@@ -117,6 +117,10 @@ module.exports.ProjectController = willy.Controller.extend({
   }
 });
 
+module.exports.IssuesController = willy.Controller.extend({
+  
+});
+
 module.exports.MilestonesController = willy.Controller.extend({
   create: function(request, response) {
     isAuthenticated(request, response, function(user) {
