@@ -6,8 +6,9 @@
     
     routes: {
       'projects': 'main',
-      'projects/new': 'create',
-      'projects/:id': 'info',
+      'projects/new': 'createProject',
+      'projects/:id': 'issues',
+      'projects/:id/issues/new': 'createIssue',
       'projects/:id/settings': 'settings'
     },
 
@@ -15,6 +16,7 @@
       'projects',
       'projects/new',
       'projects/:id',
+      'projects/:id/issues/new',
       'projects/:id/settings'
     ],
 
@@ -24,14 +26,21 @@
       });
     },
 
-    create: function() {
-      new views.Create({
+    createProject: function() {
+      new views.CreateProject({
         el: $('#container')
       });
     },
 
-    info: function(id) {
-      new views.Info({
+    issues: function(id) {
+      new views.Issues({
+        el: $('#container'),
+        project: id
+      });
+    },
+
+    createIssue: function(id) {
+      new views.CreateIssue({
         el: $('#container'),
         project: id
       });

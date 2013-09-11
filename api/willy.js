@@ -44,8 +44,11 @@ module.exports.Model = function(name, attributes, validators) {
   return mongoose.model(name, schema);
 }
 
-module.exports.ForeignKey = function(modelName) {
-  return { type: mongoose.Schema.Types.ObjectId, ref: modelName }
+module.exports.ForeignKey = function(modelName, options) {
+  if (options == undefined) options = {};
+  options['type'] = mongoose.Schema.Types.ObjectId;
+  options['ref'] = modelName;
+  return options;
 }
 
 module.exports.ManyToMany = function(model, type) {

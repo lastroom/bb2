@@ -27,7 +27,7 @@
     }
   });
 
-  views.Create = Bb.View.extend({
+  views.CreateProject = Bb.View.extend({
     template: getTemplate('create'),
     events: {
       'submit': 'onCreate'
@@ -55,8 +55,37 @@
     }
   });
 
-  views.Info = Bb.View.extend({
-    template: getTemplate('info'),
+  views.Issues = Bb.View.extend({
+    template: getTemplate('issues'),
+    initialize: function() {
+      var me = this;
+      me.render();
+    },
+    render: function() {
+      var me = this;
+      var project = new models.Project({
+        id: me.options.project
+      });
+      project.addParam('token', window.user.get('token'));
+      var issues = new collections.Issues();
+      issues.args.project = me.options.project;
+      issues.addParam('token', window.user.get('token'));
+      $.when(
+        project.fetch(),
+        issues.fetch()
+      ).done(function() {
+        project.issues = issues.toJSON();
+        me.$el.html(me.template(project.toJSON()));
+      });
+      return me;
+    }
+  });
+
+  views.CreateIssue = Bb.View.extend({
+    template: getTemplate('create-issue'),
+    events: {
+      'submit': 'onCreate'
+    },
     initialize: function() {
       var me = this;
       me.render();
@@ -71,6 +100,17 @@
         me.$el.html(me.template(project.toJSON()));
       });
       return me;
+    },
+    onCreate: function(e) {
+      e.stopPropagation();
+      e.preventDefault();
+      var me = this;
+      var data = formToJSON(me.$('form'));
+      var issue = new models.Issue(data);
+      issue.save().done(function() {
+        console.log(response);
+      });
+      return false;
     }
   });
 

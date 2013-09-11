@@ -1,5 +1,6 @@
 var willy = require('./willy'),
-    models = require('./models');
+    models = require('./models'),
+    _ = require('underscore');
 
 var rand = function() {
   return Math.random().toString(36).substr(2);
@@ -94,17 +95,13 @@ module.exports.ProjectsController = willy.Controller.extend({
 module.exports.ProjectController = willy.Controller.extend({
   read: function(request, response) {
     isAuthenticated(request, response, function(user) {
-      models.Project.findById(request.params.id, function(err, project) {
+      models.Project.findById(request.params.id).populate('admins').populate('writers').exec(function(err, project) {
         if (err) return response.status(400).send(err);
         if (project == null) return response.status(404).send({'message': 'Not found'});
-        models.Issue.find({
-          project: request.params.id
-        }, function(err, collection) {
-          if (err) return response.status(400).send(err);
-          if (collection == null) return response.status(404).send({'message': 'Not found'});
-          project.issues = collection;
-          return response.send(project);
-        });
+        var p = {};
+        _.extend(p, JSON.parse(JSON.stringify(project)));
+        p['users'] = _.union(project.admins, project.writers);
+        return response.send(p);
       });
     });
   }
@@ -267,7 +264,28 @@ module.exports.ComponentController = willy.Controller.extend({
 });
 
 module.exports.IssuesController = willy.Controller.extend({
-  create: function() {
-    
+  read: function(request, response) {
+    models.Project.findById(request.params.id, function(err, project) {
+      if (err) return response.status(400).send(err);
+      if (project == null) return response.status(404).send({'message': 'Not found'});
+      models.Issue.find({'project': request.params.id}, function(err, issues) {
+        if (err) return response.status(400).send(err);
+        if (issues == null) return response.status(404).send({'message': 'Not found'});
+        return response.send(issues);
+      });
+    });
+  },
+  create: function(request, response) {
+    isAuthenticated(request, response, function(user) {
+      models.Project.findBy(request.params.id, function(err, project) {
+        if (err) return response.status(400).send(err);
+        if (project == null) return response.status(404).send({'message': 'Not found'});
+        var issue = new models.Issue(request.args);
+        issue.save(function(err, issue) {
+          if (err) return response.status(400).send(err);
+          return response.send(issue);
+        });
+      });
+    });
   }
 });

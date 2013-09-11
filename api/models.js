@@ -32,39 +32,18 @@ module.exports.Component = new willy.Model('Component', {
   active: { type: Boolean, default: true, select: false }
 });
 
-module.exports.Status = new willy.Model('Status', {
-  name: { type: String, required: true },
-  icon: { type: String, required: true },
-  createdAt: { type: Date, default: Date.now, select: false },
-  updatedAt: { type: Date, default: Date.now, select: false },
-  active: { type: Boolean, default: true, select: false }
-});
-
-module.exports.Kind = new willy.Model('Kind', {
-  name: { type: String, required: true },
-  icon: { type: String, required: true },
-  createdAt: { type: Date, default: Date.now, select: false },
-  updatedAt: { type: Date, default: Date.now, select: false },
-  active: { type: Boolean, default: true, select: false }
-});
-
-module.exports.Priority = new willy.Model('Priority', {
-  name: { type: String, required: true },
-  icon: { type: String, required: true },
-  createdAt: { type: Date, default: Date.now, select: false },
-  updatedAt: { type: Date, default: Date.now, select: false },
-  active: { type: Boolean, default: true, select: false }
-});
-
 module.exports.Issue = new willy.Model('Issue', {
   name: { type: String, required: true },
-  description: { type: String, required: true },
-  attach: { type: String, required: true },
-  status: willy.ForeignKey('Status'),
-  kind: willy.ForeignKey('Kind'),
-  priority: willy.ForeignKey('Priority'),
+  description: { type: String },
+  attach: { type: String },
+  status: { type: String, required: true, default: 'new' },
+  kind: { type: String, required: true },
+  priority: { type: String, required: true },
+  version: willy.ForeignKey('Version'),
+  milestone: willy.ForeignKey('Milestone'),
+  component: willy.ForeignKey('Component'),
   responsable: willy.ForeignKey('User'),
-  project: willy.ForeignKey(module.exports.Project),
+  project: willy.ForeignKey('Project', {required: true}),
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now, select: false },
   active: { type: Boolean, default: true, select: false }
@@ -76,9 +55,9 @@ module.exports.Project = new willy.Model('Project', {
   versions: willy.ManyToMany(module.exports.Version),
   milestones: willy.ManyToMany(module.exports.Milestone),
   components: willy.ManyToMany(module.exports.Component),
-  readers: willy.ManyToMany(module.exports.User, 'ObjectId'),
-  writers: willy.ManyToMany(module.exports.User, 'ObjectId'),
-  admins: willy.ManyToMany(module.exports.User, 'ObjectId'),
+  readers: [willy.ForeignKey('User')],
+  writers: [willy.ForeignKey('User')],
+  admins: [willy.ForeignKey('User')],
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now, select: false },
   active: { type: Boolean, default: true }
