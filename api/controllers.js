@@ -71,7 +71,7 @@ module.exports.ProjectsController = willy.Controller.extend({
   read: function(request, response) {
     isAuthenticated(request, response, function(user) {
       models.Project.find({
-        'admins._id': user._id
+        'admins': { $in: [user._id] }
       }, function(err, collection) {
         if (err) return response.status(400).send(err);
         if (collection == null) return response.status(404).send({'message': 'Not found'});
@@ -81,7 +81,7 @@ module.exports.ProjectsController = willy.Controller.extend({
   },
   create: function(request, response) {
     isAuthenticated(request, response, function(user) {
-      request.args.admins = [user];
+      request.args.admins = [user._id];
       var project = new models.Project(request.args);
       project.save(function(err, model) {
         if (err) return response.status(400).send(err);
@@ -94,11 +94,9 @@ module.exports.ProjectsController = willy.Controller.extend({
 module.exports.ProjectController = willy.Controller.extend({
   read: function(request, response) {
     isAuthenticated(request, response, function(user) {
-      var project = null;
-      models.Project.findById(request.params.id, function(err, model) {
+      models.Project.findById(request.params.id, function(err, project) {
         if (err) return response.status(400).send(err);
-        if (model == null) return response.status(404).send({'message': 'Not found'});
-        project = model;
+        if (project == null) return response.status(404).send({'message': 'Not found'});
         models.Issue.find({
           project: request.params.id
         }, function(err, collection) {
@@ -109,16 +107,7 @@ module.exports.ProjectController = willy.Controller.extend({
         });
       });
     });
-  },
-  create: function(request, response) {
-    isAuthenticated(request, function(user) {
-
-    });
   }
-});
-
-module.exports.IssuesController = willy.Controller.extend({
-  
 });
 
 module.exports.MilestonesController = willy.Controller.extend({
@@ -128,12 +117,10 @@ module.exports.MilestonesController = willy.Controller.extend({
         if (err) return response.status(400).send(err);
         if (project == null) return response.status(404).send({'message': 'Not found'});
         var milestone = new models.Milestone(request.args);
-        milestone.save(function(err, milestone) {
+        project.milestones.push(milestone);
+        project.save(function(err, project) {
           if (err) return response.status(400).send(err);
-          project.milestones.push(milestone);
-          project.save(function() {
-            return response.send(milestone);
-          });
+          return response.send(milestone);
         });
       });
     });
@@ -147,12 +134,10 @@ module.exports.VersionsController = willy.Controller.extend({
         if (err) return response.status(400).send(err);
         if (project == null) return response.status(404).send({'message': 'Not found'});
         var version = new models.Version(request.args);
-        version.save(function(err, version) {
+        project.versions.push(version);
+        project.save(function(err, project) {
           if (err) return response.status(400).send(err);
-          project.versions.push(version);
-          project.save(function() {
-            return response.send(version);
-          });
+          return response.send(version);
         });
       });
     });
@@ -166,12 +151,10 @@ module.exports.ComponentsController = willy.Controller.extend({
         if (err) return response.status(400).send(err);
         if (project == null) return response.status(404).send({'message': 'Not found'});
         var component = new models.Component(request.args);
-        component.save(function(err, component) {
+        project.components.push(component);
+        project.save(function(err, project) {
           if (err) return response.status(400).send(err);
-          project.components.push(component);
-          project.save(function() {
-            return response.send(component);
-          });
+          return response.send(component);
         });
       });
     });
@@ -180,17 +163,33 @@ module.exports.ComponentsController = willy.Controller.extend({
 
 module.exports.MilestoneController = willy.Controller.extend({
   update: function(request, response) {
-    console.log('update');
     isAuthenticated(request, response, function(user) {
-      models.Projects.findById(request.params.id, function(err, project) {
+      models.Project.findOne({
+        '_id': request.params.id,
+        'admins': { $in: [user._id] }
+      }, function(err, project) {
         if (err) return response.status(400).send(err);
         if (project == null) return response.status(404).send({'message': 'Not found'});
-        project.milestones.findById(request.params.milestone, function(err, milestone) {
-          milestone.name = request.args.name;
-          milestone.save(function(err, model) {
-            if (err) return response.status(400).send(err);
-            return response.send(model);
-          });
+        project.milestones.id(request.params.milestone).name = request.args.name;
+        project.save(function(err, project) {
+          if (err) response.status(400).send(err);
+          response.send(project.milestones);
+        });
+      });
+    });
+  },
+  destroy: function(request, response) {
+    isAuthenticated(request, response, function(user) {
+      models.Project.findOne({
+        '_id': request.params.id,
+        'admins': { $in: [user._id] }
+      }, function(err, project) {
+        if (err) return response.status(400).send(err);
+        if (project == null) return response.status(404).send({'message': 'Not found'});
+        project.milestones.id(request.params.milestone).remove();
+        project.save(function(err, project) {
+          if (err) response.status(400).send(err);
+          response.send(project.milestones);
         });
       });
     });
@@ -199,17 +198,33 @@ module.exports.MilestoneController = willy.Controller.extend({
 
 module.exports.VersionController = willy.Controller.extend({
   update: function(request, response) {
-    console.log('update');
     isAuthenticated(request, response, function(user) {
-      models.Projects.findById(request.params.id, function(err, project) {
+      models.Project.findOne({
+        '_id': request.params.id,
+        'admins': { $in: [user._id] }
+      }, function(err, project) {
         if (err) return response.status(400).send(err);
         if (project == null) return response.status(404).send({'message': 'Not found'});
-        project.versions.findById(request.params.version, function(err, version) {
-          version.name = request.args.name;
-          version.save(function(err, model) {
-            if (err) return response.status(400).send(err);
-            return response.send(model);
-          })
+        project.versions.id(request.params.version).name = request.args.name;
+        project.save(function(err, project) {
+          if (err) response.status(400).send(err);
+          response.send(project.versions);
+        });
+      });
+    });
+  },
+  destroy: function(request, response) {
+    isAuthenticated(request, response, function(user) {
+      models.Project.findOne({
+        '_id': request.params.id,
+        'admins': { $in: [user._id] }
+      }, function(err, project) {
+        if (err) return response.status(400).send(err);
+        if (project == null) return response.status(404).send({'message': 'Not found'});
+        project.versions.id(request.params.version).remove();
+        project.save(function(err, project) {
+          if (err) response.status(400).send(err);
+          response.send(project.versions);
         });
       });
     });
@@ -218,19 +233,41 @@ module.exports.VersionController = willy.Controller.extend({
 
 module.exports.ComponentController = willy.Controller.extend({
   update: function(request, response) {
-    console.log('update');
     isAuthenticated(request, response, function(user) {
-      models.Projects.findById(request.params.id, function(err, project) {
+      models.Project.findOne({
+        '_id': request.params.id,
+        'admins': { $in: [user._id] }
+      }, function(err, project) {
         if (err) return response.status(400).send(err);
         if (project == null) return response.status(404).send({'message': 'Not found'});
-        project.components.findById(request.params.component, function(err, component) {
-          component.name = request.args.name;
-          component.save(function(err, model) {
-            if (err) return response.status(400).send(err);
-            return response.send(model);
-          });
+        project.components.id(request.params.component).name = request.args.name;
+        project.save(function(err, project) {
+          if (err) response.status(400).send(err);
+          response.send(project.components);
         });
       });
     });
+  },
+  destroy: function(request, response) {
+    isAuthenticated(request, response, function(user) {
+      models.Project.findOne({
+        '_id': request.params.id,
+        'admins': { $in: [user._id] }
+      }, function(err, project) {
+        if (err) return response.status(400).send(err);
+        if (project == null) return response.status(404).send({'message': 'Not found'});
+        project.components.id(request.params.component).remove();
+        project.save(function(err, project) {
+          if (err) response.status(400).send(err);
+          response.send(project.components);
+        });
+      });
+    });
+  }
+});
+
+module.exports.IssuesController = willy.Controller.extend({
+  create: function() {
+    
   }
 });

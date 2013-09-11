@@ -37,7 +37,7 @@ module.exports.App = function(params) {
 }
 
 module.exports.Model = function(name, attributes, validators) {
-  var schema = new mongoose.Schema(attributes);
+  var schema = new mongoose.Schema(attributes, { versionKey: false });
   for(var i in validators) {
     schema.path(i).validate(validators[i]);
   }
@@ -48,16 +48,17 @@ module.exports.ForeignKey = function(modelName) {
   return { type: mongoose.Schema.Types.ObjectId, ref: modelName }
 }
 
-module.exports.ManyToMany = function(model) {
-  return [model.schema];
+module.exports.ManyToMany = function(model, type) {
+  var ref = type == undefined ? model.schema : mongoose.Schema.Types[type];
+  return [ref];
 }
 
-module.exports.setCORS = function(object) {
-  object.header('Access-Control-Allow-Origin', '*'),
-  object.header('Access-Control-Allow-Headers', '*'),
-  object.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE'),
-  object.header('Access-Control-Allow-Credentials', 'true')
-  return object;
+module.exports.setCORS = function(headers) {
+  headers.header('Access-Control-Allow-Origin', '*');
+  headers.header('Access-Control-Allow-Headers', '*');
+  headers.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  headers.header('Access-Control-Allow-Credentials', 'true');
+  return headers;
 }
 
 module.exports.Controller = {
@@ -91,6 +92,7 @@ module.exports.Controller = {
   predestroy: function (request, response) {
     module.exports.setCORS(response);
     if (this['destroy']) {
+      request['args'] = request.query;
       this['destroy'](request, response);
     }
   },

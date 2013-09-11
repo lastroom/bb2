@@ -22,7 +22,7 @@
     args: {},
     url: function() {
       if (this.id) {
-        return uri('projects', this.args.project, 'milestones', this.id);
+        return uri('projects', this.args.project, 'milestones', this.id) + this.getParamsQuery();
       }
       return uri('projects', this.args.project, 'milestones');
     }
@@ -32,7 +32,7 @@
     args: {},
     url: function() {
       if (this.id) {
-        return uri('projects', this.args.project, 'versions', this.id);
+        return uri('projects', this.args.project, 'versions', this.id) + this.getParamsQuery();
       }
       return uri('projects', this.args.project, 'versions');
     }
@@ -42,7 +42,7 @@
     args: {},
     url: function() {
       if (this.id) {
-        return uri('projects', this.args.project, 'components', this.id);
+        return uri('projects', this.args.project, 'components', this.id) + this.getParamsQuery();
       }
       return uri('projects', this.args.project, 'components');
     }

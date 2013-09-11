@@ -28,7 +28,7 @@ app.url("/projects/:id", controllers.ProjectController);
 app.url("/projects/:id/components", controllers.ComponentsController);
 app.url("/projects/:id/components/:component", controllers.ComponentController);
 app.url("/projects/:id/versions", controllers.VersionsController);
-app.url("/projects/:id/version/:version", controllers.VersionController);
+app.url("/projects/:id/versions/:version", controllers.VersionController);
 app.url("/projects/:id/milestones", controllers.MilestonesController);
 app.url("/projects/:id/milestones/:milestone", controllers.MilestoneController);
 

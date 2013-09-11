@@ -101,6 +101,7 @@
       }
       var target = me.$(e.currentTarget);
       target.closest('li').addClass('active');
+      me.$('.local-container').off();
       new views.ParamsList({
         model: me.model,
         type: target.data('type'),
@@ -113,7 +114,8 @@
     template: getTemplate('params-list'),
     events: {
       'click .create': 'onCreate',
-      'click .edit': 'onUpdate'
+      'click .edit': 'onUpdate',
+      'click .delete': 'onDestroy'
     },
     initialize: function() {
       var me = this;
@@ -122,7 +124,6 @@
     },
     render: function() {
       var me = this;
-      me.$el.off();
       me.$el.html(me.template(me.model.toJSON()));
       return me;
     },
@@ -150,9 +151,31 @@
       });
       model.args.project = me.model.get('_id');
       model.save().done(function(response) {
-        console.log(response);
-        /*me.model.get(me.options.type.toLowerCase()).push(response);
-        me.initialize();*/
+        var list = me.model.get(me.options.type.toLowerCase());
+        for(var i in list) {
+          if (target.data('id') == list[i]._id) {
+            list[i].name = name;
+          }
+        }
+        me.initialize();
+      });
+    },
+    onDestroy: function(e) {
+      var me = this;
+      var target = me.$(e.currentTarget);
+      var model = new models[me.options.type.substring(0, me.options.type.length - 1)]({
+        id: target.data('id')
+      });
+      model.args.project = me.model.get('_id');
+      model.addParam('token', window.user.get('token'));
+      model.destroy().done(function(response) {
+        var list = me.model.get(me.options.type.toLowerCase());
+        for(var i in list) {
+          if (target.data('id') == list[i]._id) {
+            list.splice(i, 1);
+          }
+        }
+        me.initialize();
       });
     }
   });

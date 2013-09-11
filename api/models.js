@@ -76,10 +76,9 @@ module.exports.Project = new willy.Model('Project', {
   versions: willy.ManyToMany(module.exports.Version),
   milestones: willy.ManyToMany(module.exports.Milestone),
   components: willy.ManyToMany(module.exports.Component),
-  //issues: willy.ManyToMany(module.exports.Issue),
-  readers: willy.ManyToMany(module.exports.User),
-  writers: willy.ManyToMany(module.exports.User),
-  admins: willy.ManyToMany(module.exports.User),
+  readers: willy.ManyToMany(module.exports.User, 'ObjectId'),
+  writers: willy.ManyToMany(module.exports.User, 'ObjectId'),
+  admins: willy.ManyToMany(module.exports.User, 'ObjectId'),
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now, select: false },
   active: { type: Boolean, default: true }

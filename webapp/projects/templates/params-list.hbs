@@ -1,7 +1,7 @@
 <script type="text/x-handlebars-template" id="projects-params-list-template">
   <ul>
     {{# each list }}
-    <li>{{ name }} <button class="edit btn" type="button" data-id="{{ _id }}"><i class="icon-pencil"></i></button></li>
+    <li>{{ name }} <button class="edit btn" type="button" data-id="{{ _id }}"><i class="icon-pencil"></i></button> <button class="delete btn btn-danger" type="button" data-id="{{ _id }}"><i class="icon-trash"></i></button></li>
     {{/ each }}
   </ul>
   <button class="create" type="button">{{ __ "Create" }}</button>
