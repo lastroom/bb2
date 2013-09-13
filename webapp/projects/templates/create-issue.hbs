@@ -1,0 +1,93 @@
+<script type="text/x-handlebars-template" id="projects-create-issue-template">
+    <h1>{{ __ "Nuevo issue" }}</h1>
+    <form class="form-horizontal">
+      <div class="control-group">
+        <label class="control-label">{{ __ "Name" }}</label>
+        <div class="controls">
+          <input type="text" placeholder="{{ __ "Name" }}" name="name" required="required">
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label">{{ __ "Description" }}</label>
+        <div class="controls">
+          <textarea placeholder="{{ __ "Description" }}" name="description"></textarea>
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label">{{ __ "Priority" }}</label>
+        <div class="controls">
+          <select name="priority" required="required">
+            <option value="block">{{ __ "Block" }}</option>
+            <option value="critical">{{ __ "Critical" }}</option>
+            <option value="mayor" selected>{{ __ "Mayor" }}</option>
+            <option value="minor">{{ __ "Minor" }}</option>
+            <option value="trivial">{{ __ "trivial" }}</option>
+          </select>
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label">{{ __ "Kind" }}</label>
+        <div class="controls">
+          <select name="kind" required="required">
+            <option value="bug" selected>{{ __ "Bug" }}</option>
+            <option value="enhancement">{{ __ "Enhancement" }}</option>
+            <option value="proposal">{{ __ "Proposal" }}</option>
+            <option value="task">{{ __ "Task" }}</option>
+          </select>
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label">{{ __ "Responsable" }}</label>
+        <div class="controls">
+          <select name="responsable">
+            <option value="">{{ __ "Choose a responsable" }}</option>
+            {{# each users }}
+            <option value="{{ _id }}">{{ firstName }} {{ lastName }}</option>
+            {{/ each }}
+          </select>
+        </div>
+      </div>
+      {{# if milestones }}
+      <div class="control-group">
+        <label class="control-label">{{ __ "Milestone" }}</label>
+        <div class="controls">
+          <select name="milestone">
+            <option value="">{{ __ "Choose a milestone" }}</option>
+            {{# each milestones }}
+            <option value="{{ _id }}">{{ name }}</option>
+            {{/ each }}
+          </select>
+        </div>
+      </div>
+      {{/ if }}
+      {{# if components }}
+      <div class="control-group">
+        <label class="control-label">{{ __ "Component" }}</label>
+        <div class="controls">
+          <select name="component">
+            <option value="">{{ __ "Choose a component" }}</option>
+            {{# each components }}
+            <option value="{{ _id }}">{{ name }}</option>
+            {{/ each }}
+          </select>
+        </div>
+      </div>
+      {{/ if }}
+      {{# if versions }}
+      <div class="control-group">
+        <label class="control-label">{{ __ "Version" }}</label>
+        <div class="controls">
+          <select name="version">
+            <option value="">{{ __ "Choose a version" }}</option>
+            {{# each versions }}
+            <option value="{{ _id }}">{{ name }}</option>
+            {{/ each }}
+          </select>
+        </div>
+      </div>
+      {{/ if }}
+      <div class="form-actions">
+        <button class="btn btn-primary pull-right" type="submit">{{ __ "Create" }}</button>
+      </div>
+    </form>
+</script>

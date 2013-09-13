@@ -74,7 +74,7 @@
         project.fetch(),
         issues.fetch()
       ).done(function() {
-        project.issues = issues.toJSON();
+        project.set('issues', issues.toJSON());
         me.$el.html(me.template(project.toJSON()));
       });
       return me;
@@ -106,9 +106,11 @@
       e.preventDefault();
       var me = this;
       var data = formToJSON(me.$('form'));
+      data['token'] = window.user.get('token');
       var issue = new models.Issue(data);
+      issue.args.project = me.options.project;
       issue.save().done(function() {
-        console.log(response);
+        Backbone.history.navigate('#projects/' + me.options.project, {trigger: true}, {replace: true});
       });
       return false;
     }

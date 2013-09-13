@@ -13,8 +13,9 @@
   });
 
   models.Issue = Bb.Model.extend({
+    args: {},
     url: function() {
-      return uri('issues');
+      return uri('projects', this.args.project, 'issues');
     }
   });
 

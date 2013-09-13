@@ -277,9 +277,10 @@ module.exports.IssuesController = willy.Controller.extend({
   },
   create: function(request, response) {
     isAuthenticated(request, response, function(user) {
-      models.Project.findBy(request.params.id, function(err, project) {
+      models.Project.findById(request.params.id, function(err, project) {
         if (err) return response.status(400).send(err);
         if (project == null) return response.status(404).send({'message': 'Not found'});
+        request.args.project = project._id;
         var issue = new models.Issue(request.args);
         issue.save(function(err, issue) {
           if (err) return response.status(400).send(err);
