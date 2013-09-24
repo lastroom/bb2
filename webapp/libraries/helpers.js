@@ -204,6 +204,11 @@ App.loadingBar = {
   }
 }
 
+hbs.registerHelper('isAuthenticated', function(options) {
+  if (isAuthenticated()) return options.fn(this);
+  return options.inverse(this);
+});
+
 //Backbone Router extensions
 _.extend(Backbone.Router.prototype, {
   route: function(route, name, callback) {

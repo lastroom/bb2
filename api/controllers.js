@@ -268,7 +268,11 @@ module.exports.IssuesController = willy.Controller.extend({
     models.Project.findById(request.params.id, function(err, project) {
       if (err) return response.status(400).send(err);
       if (project == null) return response.status(404).send({'message': 'Not found'});
-      models.Issue.find({'project': request.params.id}, function(err, issues) {
+      var params = {'project': request.params.id}
+      if (request.args.status != undefined) {
+        params['status'] = request.args.status;
+      }
+      models.Issue.find(params, function(err, issues) {
         if (err) return response.status(400).send(err);
         if (issues == null) return response.status(404).send({'message': 'Not found'});
         return response.send(issues);

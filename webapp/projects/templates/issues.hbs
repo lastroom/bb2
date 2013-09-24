@@ -1,14 +1,36 @@
 <script type="text/x-handlebars-template" id="projects-issues-template">
-    <h1>{{ name }}</h1>
-    <h2>{{ __ "Issues" }}</h2>
-    <p>
+  {{> header }}
+  <div class="container main-section">
+    <h1 class="pull-left">{{ name }}</h1>
+    <div class="btn-group pull-right" style="margin-top: 15px;">
       <a class="btn" href="#projects/{{ _id }}/issues/new">
-        {{ __ "Create issue" }}
+        <i class="icon-plus"></i> {{ __ "Create issue" }}
       </a>
-    </p>
-    <ul>
-      {{# each issues }}
-      <li>{{ name }}</li>
-      {{/ each }}
-    </ul>
+      <button class="btn filter"><i class="icon-filter"></i> {{ __ "Filter" }}</button>
+    </div>
+  </div>
+  <div class="row">
+    <form id="filter-form" class="form-inline" style="display: none;">
+      <select class="filter-opt" name="milestone">
+        {{# each milestones }}
+        <option value="{{ _id }}">{{ name }}</option>
+        {{/ each }}
+      </select>
+      <select class="filter-opt" name="version">
+        {{# each versions }}
+        <option value="{{ _id }}">{{ name }}</option>
+        {{/ each }}
+      </select>
+      <select class="filter-opt" name="components">
+        {{# each components }}
+        <option value="{{ _id }}">{{ name }}</option>
+        {{/ each }}
+      </select>
+      <button class="btn btn-primary" type="submit">{{ __ "Filter" }}</button>
+    </form>
+  </div>
+  <div style="clear:both"></div>
+  <div class="container main-section" style="margin-top: 0">
+    <div class="new-list"></div>
+  </div>
 </script>

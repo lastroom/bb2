@@ -1,10 +1,15 @@
 <script type="text/x-handlebars-template" id="auth-register-template">
-  <h1>{{ __ "Register" }}</h1>
-  <form class="form-inline">
-    <input class="input-xlarge" type="text" name="firstName" placeholder="{{ __ "Firstname" }}" required>
-    <input class="input-xlarge" type="text" name="lastName" placeholder="{{ __ "Lastname" }}" required>
-    <input class="input-xlarge" type="text" name="email" placeholder="{{ __ "Email" }}" required>
-    <input class="input-xlarge" type="password" name="password" placeholder="{{ __ "Password" }}" required>
-    <button class="btn" type="submit">{{ __ "Sign up" }}</button>
-  </form>
+  {{> header }}
+  <div class="container main-section">
+    <form class="form-horizontal span6 offset3 form-box">
+      <h1>{{ __ "Register with your email." }}</h1>
+      <br>
+      <input class="input-block-level" type="text" name="firstName" placeholder="{{ __ "Firstname" }}" required>
+      <input class="input-block-level" type="text" name="lastName" placeholder="{{ __ "Lastname" }}" required>
+      <input class="input-block-level" type="text" name="email" placeholder="{{ __ "Email" }}" required>
+      <input class="input-block-level" type="password" name="password" placeholder="{{ __ "Password" }}" required>
+      <button class="btn btn-primary btn-large pull-right" type="submit">{{ __ "Sign up" }}</button>
+      <p class="input-block-level"><small>{{ __ "Do you have an account?," }} <a href="#login">{{ __ "Log in" }}</a></small></p>
+    </form>
+  </div>
 </script>

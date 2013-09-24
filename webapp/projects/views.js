@@ -57,6 +57,9 @@
 
   views.Issues = Bb.View.extend({
     template: getTemplate('issues'),
+    events: {
+      'click .filter': 'onShowFilter'
+    },
     initialize: function() {
       var me = this;
       me.render();
@@ -67,16 +70,82 @@
         id: me.options.project
       });
       project.addParam('token', window.user.get('token'));
-      var issues = new collections.Issues();
-      issues.args.project = me.options.project;
-      issues.addParam('token', window.user.get('token'));
-      $.when(
-        project.fetch(),
-        issues.fetch()
-      ).done(function() {
-        project.set('issues', issues.toJSON());
+      project.fetch().done(function() {
         me.$el.html(me.template(project.toJSON()));
+        me.onFilter();
       });
+      return me;
+    },
+    onShowFilter: function() {
+      var me = this;
+      var filterform = me.$('#filter-form');
+      if (me.$('#filter-form:visible').size()) {
+        filterform.slideUp('fast');
+      } else {
+        filterform.slideDown('fast');
+      }
+    },
+    onFilter: function() {
+      var me = this;
+
+      var news = new collections.Issues();
+      news.args.project = me.options.project;
+      news.addParams({
+        'token': window.user.get('token'),
+        'status': 'new'
+      });
+
+      var open = new collections.Issues();
+      open.args.project = me.options.project;
+      open.addParams({
+        'token': window.user.get('token'),
+        'status': 'open'
+      });
+
+      var onhold = new collections.Issues();
+      onhold.args.project = me.options.project;
+      onhold.addParams({
+        'token': window.user.get('token'),
+        'status': 'onhold'
+      });
+
+      var resolved = new collections.Issues();
+      resolved.args.project = me.options.project;
+      resolved.addParams({
+        'token': window.user.get('token'),
+        'status': 'resolved'
+      });
+
+      $.when(
+        news.fetch(),
+        open.fetch(),
+        onhold.fetch(),
+        resolved.fetch()
+      ).done(function() {
+        new views.IssuesList({
+          el: me.$('.new-list'),
+          issues: {
+            'new': news.toJSON(),
+            'open': open.toJSON(),
+            'onhold': onhold.toJSON(),
+            'resolved': resolved.toJSON()
+          }
+        });
+      });
+    }
+  });
+
+  views.IssuesList = Bb.View.extend({
+    template: getTemplate('issues-list'),
+    initialize: function() {
+      var me = this;
+      me.render();
+    },
+    render: function() {
+      var me = this;
+      me.$el.html(me.template({
+        issues: me.options.issues
+      }));
       return me;
     }
   });

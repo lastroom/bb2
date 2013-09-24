@@ -1,3 +1,71 @@
 @import "settings.less";
 @import "bootstrap/bootstrap.less";
 @import "bootstrap/bootstrap-responsive.less";
+
+body {
+  background: rgba(0, 0, 0, .05);
+}
+
+.main-section {
+  margin-top: 60px;
+}
+
+.form-box {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 1px black;
+  input, textarea {
+    margin-bottom: 15px;
+    padding: 7px 9px;
+    height: 20px!important;
+  }
+  textarea {
+    height: 80px!important;
+  }
+  select {
+    margin-bottom: 15px;
+  }
+}
+
+.list {
+  background: white;
+  box-shadow: 0 0 1px black;
+  padding: 5px 0;
+  h2 {
+    padding: 0 0 20px!important;
+    text-align: center;
+  }
+  ul {
+    background: rgba(0, 0, 0, .05);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    height: 485px;
+    strong {
+      cursor: pointer;
+    }
+    li {
+      margin: 0;
+      padding: 0;
+      margin-bottom: 5px;
+    }
+    .issue {
+      background: rgba(255, 255, 0, .5);
+      padding: 4px;
+      border-radius: 6px;
+      font-size: 15px;
+    }
+    hr {
+      border-bottom: 0;
+      border-top: black 1px solid;
+    }
+  }
+}
+
+#filter-form {
+  text-align: center;
+  background: white;
+  padding: 20px 0 10px;
+  margin-top: 5px;
+}
