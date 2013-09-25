@@ -1,17 +1,18 @@
 <script type="text/x-handlebars-template" id="projects-settings-template">
-    <div class="container main-section">
-      <h1>{{ __ "Settings" }}</h1>
-      <ul class="nav nav-pills">
-        <li>
-          <a href="javascript:void(0);" class="btn-link module-btn" data-type="Versions">{{ __ "Versions" }}</a>
-        </li>
-        <li>
-          <a href="javascript:void(0);" class="btn-link module-btn" data-type="Milestones">{{ __ "Milestones" }}</a>
-        </li>
-        <li>
-          <a href="javascript:void(0);" class="btn-link module-btn" data-type="Components">{{ __ "Components" }}</a>
-        </li>
-      </ul>
-      <div class="local-container"></div>
-    </div>
+  {{> header }}
+  <div class="container main-section">
+    <h1>{{ __ "Settings" }}</h1>
+    <ul class="nav nav-tabs">
+      <li>
+        <a href="javascript:void(0);" class="btn-link module-btn" data-type="Versions">{{ __ "Versions" }}</a>
+      </li>
+      <li>
+        <a href="javascript:void(0);" class="btn-link module-btn" data-type="Milestones">{{ __ "Milestones" }}</a>
+      </li>
+      <li>
+        <a href="javascript:void(0);" class="btn-link module-btn" data-type="Components">{{ __ "Components" }}</a>
+      </li>
+    </ul>
+    <div class="local-container"></div>
+  </div>
 </script>

@@ -202,6 +202,7 @@
       me.model.addParam('token', window.user.get('token'));
       me.model.fetch().done(function() {
         me.$el.html(me.template(me.model.toJSON()));
+        me.$('li:first-child').click();
       });
       return me;
     },
