@@ -209,6 +209,14 @@ hbs.registerHelper('isAuthenticated', function(options) {
   return options.inverse(this);
 });
 
+hbs.registerHelper('equals', function(v1, v2, options) {
+  if (v1 == v2) {
+    options.fn(this);
+  } else {
+    options.inverse(this);
+  }
+});
+
 //Backbone Router extensions
 _.extend(Backbone.Router.prototype, {
   route: function(route, name, callback) {

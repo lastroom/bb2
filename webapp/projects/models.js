@@ -15,7 +15,7 @@
   models.Issue = Bb.Model.extend({
     args: {},
     url: function() {
-      return uri('projects', this.args.project, 'issues');
+      return uri('projects', this.args.project, 'issues') + (this.id == undefined ? '' : '/' + this.id);
     }
   });
 

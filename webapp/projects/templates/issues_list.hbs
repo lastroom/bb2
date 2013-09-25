@@ -1,10 +1,10 @@
 <script type="text/x-handlebars-template" id="projects-issues-list-template">
 <div class="row">
-  <div class="span3 list">
+  <div id="new" class="span3 list">
     <h2>{{ __ "New" }}</h2>
     <ul>
       {{# each issues.new }}
-      <li class="issue">
+      <li id="{{ this._id }}" class="issue {{ this.status }}" data-status="new" data-responsible="{{ this.responsable }}" data-project="{{ this.project }}">
         <div>
           <strong class="task-title">
             {{ this.name }}
@@ -28,11 +28,11 @@
       {{/ each }}
     </ul>
   </div>
-  <div class="span3 list">
+  <div id="open" class="span3 list">
     <h2>{{ __ "Open" }}</h2>
     <ul>
       {{# each issues.open }}
-      <li class="issue">
+      <li id="{{ this._id }}" class="issue" data-status="open" data-responsible="{{ this.responsable }}" data-project="{{ this.project }}">
         <div>
           <strong class="task-title">
             {{ this.name }}
@@ -49,18 +49,18 @@
             {{# if this.comments }}
             <div class="icon comments"></div>
             {{/ if }}
-            <div class="responsible">{{ this.responsible }}</div>
+            <div class="responsable">{{ this.responsible }}</div>
             <div style="clear:both;"></div>
         </div>
       </li>
       {{/ each }}
     </ul>
   </div>
-  <div class="span3 list">
+  <div id="onhold" class="span3 list">
     <h2>{{ __ "On hold" }}</h2>
     <ul>
       {{# each issues.onhold }}
-      <li class="issue">
+      <li id="{{ this._id }}" class="issue" data-status="onhold" data-responsible="{{ this.responsable }}" data-project="{{ this.project }}">
         <div>
           <strong class="task-title">
             {{ this.name }}
@@ -84,11 +84,11 @@
       {{/ each }}
     </ul>
   </div>
-  <div class="span3 list">
+  <div id="resolved" class="span3 list">
     <h2>{{ __ "Resolved" }}</h2>
     <ul>
       {{# each issues.resolved }}
-      <li class="issue">
+      <li id="{{ this._id }}" class="issue" data-status="resolved" data-responsible="{{ this.responsable }}" data-project="{{ this.project }}">
         <div>
           <strong class="task-title">
             {{ this.name }}

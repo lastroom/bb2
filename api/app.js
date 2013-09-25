@@ -32,5 +32,6 @@ app.url("/projects/:id/versions/:version", controllers.VersionController);
 app.url("/projects/:id/milestones", controllers.MilestonesController);
 app.url("/projects/:id/milestones/:milestone", controllers.MilestoneController);
 app.url("/projects/:id/issues", controllers.IssuesController);
+app.url("/projects/:project/issues/:id", controllers.IssueController);
 
 app.listen(4444);

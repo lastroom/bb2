@@ -13,6 +13,7 @@
     "environment": {
       "libraries": [
         "jquery",
+        "jquery-ui",
         "underscore",
         "backbone",
         "backbone.extensions",

@@ -92,7 +92,7 @@
       news.args.project = me.options.project;
       news.addParams({
         'token': window.user.get('token'),
-        'status': 'new'
+        'status': 'new,invalid'
       });
 
       var open = new collections.Issues();
@@ -146,7 +146,71 @@
       me.$el.html(me.template({
         issues: me.options.issues
       }));
+      me.setDragAndDrop();
       return me;
+    },
+    setDragAndDrop: function() {
+      var me = this;
+      
+      $('.list ul .issue').draggable({
+        appendTo: 'parent',
+        helper: 'clone',
+        snap: true,
+        handle: '.task-title'
+      });
+
+      $('.list ul').droppable({
+        accept: '.issue',
+        drop: function(e, ui) {
+          var taskClone = ui.draggable.clone();
+          var flag = false;
+          if($(this).children('#' + taskClone.attr('id')).size() == 0) {
+            taskClone.prependTo(this);
+            flag = true;
+          }
+          taskClone.draggable({
+            appendTo: 'parent',
+            helper: 'clone',
+            snap: true,
+            handle: '.task-title'
+          });
+          var list = $(this).closest('.list').attr('id');
+
+
+
+          if(list == 'new') {
+            console.log(list);
+            console.log(taskClone.data('status'));
+            if (taskClone.data('status') == 'invalid') {
+              taskClone.addClass('invalid');
+            } else {
+              if (taskClone.data('status') == 'onhold' && list == 'new') {
+                taskClone.addClass('invalid');
+                list = 'invalid';
+              }
+            }
+          } else {
+            taskClone.removeClass('invalid');
+          }
+          
+          var issue = new models.Issue({
+            id: taskClone.attr('id'),
+            responsable: taskClone.data('responsable'),
+            status: list
+          });
+
+          issue.args.project = taskClone.data('project');
+
+          issue.save().done(function(response) {
+            taskClone.find('.responsable').text(response.responsable);
+            taskClone.attr('data-status', list);
+          });
+          
+          if(flag) {
+            ui.draggable.remove();
+          }
+        }
+      });
     }
   });
 

@@ -269,10 +269,11 @@ module.exports.IssuesController = willy.Controller.extend({
       if (err) return response.status(400).send(err);
       if (project == null) return response.status(404).send({'message': 'Not found'});
       var params = {'project': request.params.id}
-      if (request.args.status != undefined) {
-        params['status'] = request.args.status;
+      var status = [request.args.status];
+      if (request.args.status.indexOf(',') != -1) {
+        status = request.args.status.split(',');
       }
-      models.Issue.find(params, function(err, issues) {
+      models.Issue.find(params).where('status').in(status).exec(function(err, issues) {
         if (err) return response.status(400).send(err);
         if (issues == null) return response.status(404).send({'message': 'Not found'});
         return response.send(issues);
@@ -288,6 +289,24 @@ module.exports.IssuesController = willy.Controller.extend({
         var issue = new models.Issue(request.args);
         issue.save(function(err, issue) {
           if (err) return response.status(400).send(err);
+          return response.send(issue);
+        });
+      });
+    });
+  }
+});
+
+module.exports.IssueController = willy.Controller.extend({
+  update: function(request, response) {
+    models.Project.findById(request.params.project, function(err, project) {
+      if (err) return response.status(400).send(err);
+      if (project == null) return response.status(404).send({'message': 'Not found'});
+      var params = {'project': request.params.project, '_id': request.params.id};
+      models.Issue.findOne(params, function(err, issue) {
+        if (err) return response.status(400).send(err);
+        if (issue == null) return response.status(404).send({'message': 'Not found'});
+        issue.status = request.args.status;
+        issue.save(function(err, issue) {
           return response.send(issue);
         });
       });
