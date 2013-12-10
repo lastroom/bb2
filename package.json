@@ -19,7 +19,8 @@
     "express": "",
     "mongoose": "",
     "underscore": "",
-    "crypto": ""
+    "crypto": "",
+    "cors": ""
   },
   "repository": {
     "type": "git",

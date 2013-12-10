@@ -179,8 +179,6 @@
 
 
           if(list == 'new') {
-            console.log(list);
-            console.log(taskClone.data('status'));
             if (taskClone.data('status') == 'invalid') {
               taskClone.addClass('invalid');
             } else {
@@ -266,7 +264,6 @@
       me.model.addParam('token', window.user.get('token'));
       me.model.fetch().done(function() {
         me.$el.html(me.template(me.model.toJSON()));
-        me.$('li:first-child').click();
       });
       return me;
     },
@@ -306,6 +303,7 @@
     onCreate: function(e) {
       var me = this;
       var name = prompt(__('Provide a name'));
+      if (name == null) return false;
       var model = new models[me.options.type.substring(0, me.options.type.length - 1)]({
         name: name,
         token: window.user.get('token')
@@ -320,6 +318,7 @@
       var me = this;
       var target = me.$(e.currentTarget);
       var name = prompt(__('Provide a new name'));
+      if (name == null) return false;
       var model = new models[me.options.type.substring(0, me.options.type.length - 1)]({
         name: name,
         token: window.user.get('token'),

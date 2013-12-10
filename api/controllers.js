@@ -160,6 +160,7 @@ module.exports.ComponentsController = willy.Controller.extend({
 
 module.exports.MilestoneController = willy.Controller.extend({
   update: function(request, response) {
+    console.log(response);
     isAuthenticated(request, response, function(user) {
       models.Project.findOne({
         '_id': request.params.id,

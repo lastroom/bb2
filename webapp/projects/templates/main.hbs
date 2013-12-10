@@ -1,14 +1,17 @@
 <script type="text/x-handlebars-template" id="projects-main-template">
   {{> header }}
-  <div class="container main-section form-box">
+  <div class="container main-section">
     <h1>{{ __ "Projects" }}</h1>
-    <ul>
-      {{# each projects }}
-      <li>
-        <a href="#projects/{{ _id }}">{{ name }} - {{ description }}</a>
-        <a class="btn" href="#projects/{{ _id }}/settings"><i class="icon-wrench"></i></a>
-      </li>
-      {{/ each }}
-    </ul>
+    <nav>
+    {{# each projects }}
+      <div class="img-rounded">
+        <h3>
+          <a href="#projects/{{ _id }}">{{ name }} - {{ description }}</a>
+          <a class="btn" href="#projects/{{ _id }}/settings"><i class="icon-wrench"></i></a>
+        </h3>
+        <p>{{ description }}</p>
+      </div>
+    {{/ each }}
+    </nav>
   </div>
 </script>

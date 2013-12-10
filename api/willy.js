@@ -1,7 +1,8 @@
 var express = require("express"),
     mongoose = require('mongoose'),
     _ = require('underscore'),
-    crypto = require('crypto');
+    crypto = require('crypto'),
+    cors = require('cors');
 
 var connectdb = function(name) {
   return {
@@ -28,7 +29,7 @@ module.exports.App = function(params) {
     for(var handler in verbs) {
       var method = verbs[handler];
       if (controller[handler]) {
-        app[method](resourceUri, _.bind(controller["pre" + handler], controller));
+        app[method](resourceUri, cors(), _.bind(controller["pre" + handler], controller));
       }
     }
   }
@@ -56,24 +57,14 @@ module.exports.ManyToMany = function(model, type) {
   return [ref];
 }
 
-module.exports.setCORS = function(headers) {
-  headers.header('Access-Control-Allow-Origin', '*');
-  headers.header('Access-Control-Allow-Headers', '*');
-  headers.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-  headers.header('Access-Control-Allow-Credentials', 'true');
-  return headers;
-}
-
 module.exports.Controller = {
   preread: function(request, response) {
-    module.exports.setCORS(response);
     if (this['read']) {
       request['args'] = request.query;
       this['read'](request, response);
     }
   },
   precreate: function(request, response) {
-    module.exports.setCORS(response);
     if (this['create']) {
       request['args'] = request.body;
       if ('model' in request.body) {
@@ -83,7 +74,6 @@ module.exports.Controller = {
     }
   },
   preupdate: function(request, response) {
-    module.exports.setCORS(response);
     if (this['update']) {
       request['args'] = request.body;
       if ('model' in request.body) {
@@ -93,7 +83,6 @@ module.exports.Controller = {
     }
   },
   predestroy: function (request, response) {
-    module.exports.setCORS(response);
     if (this['destroy']) {
       request['args'] = request.query;
       this['destroy'](request, response);

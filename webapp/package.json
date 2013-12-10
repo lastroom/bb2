@@ -26,7 +26,8 @@
       "applications": [
         "root",
         "auth",
-        "projects"
+        "projects",
+        "settings"
       ]
     }
   },
